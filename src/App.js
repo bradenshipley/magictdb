@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
+import AppBar from './components/AppBar/AppBar'
 import { auth } from './firebase/config'
+import RegisterModal from './components/Modal/RegisterModal'
+import LoginModal from './components/Modal/LoginModal'
+import { MuiThemeProvider } from '@material-ui/core/styles';
 
 class App extends Component {
 	state = {
-		user: ''
+		user: '',
+		showRegister: false,
+		showLogin: false
 	}
 	componentDidMount = () => {
 		//add a listener for a logged in user, if there is one, set the user state to the currently logged in user, else do nothing
@@ -15,27 +21,43 @@ class App extends Component {
 			}
 		})
 	}
-	register = () => {
-		auth.createUserWithEmailAndPassword('kayceeshipley@gmail.com', 'password123').catch(err => console.log(err))
+	showRegister = () => {
+		this.setState({ showRegister: !this.state.showRegister })
 	}
-	login = (user, email) => {
-		auth.signInWithEmailAndPassword('bradenrshipley@gmail.com', 'password123').catch(err => console.log(err))
+	showLogin = () => {
+		this.setState({ showLogin: !this.state.showLogin })
 	}
 	logout = () => {
 		auth.signOut().then(() => this.setState({ user: '' })).catch(err => console.log(err))
 	}
 	render() {
 		return (
-			<div className="App">
-				Landing Page
-			<button onClick={this.register}>register</button>
-				<button onClick={this.login}>login</button>
-				<button onClick={this.logout}>logout</button>
-				<br />
-				{this.state.user ? this.state.user.email : <p>Nobody is signed in!</p>}
-			</div>
+			<MuiThemeProvider theme={this.props.theme}>
+				<div className="App">
+					<AppBar
+						login={this.login}
+						logout={this.logout}
+						user={this.state.user}
+						showRegister={this.showRegister}
+						showLogin={this.showLogin}
+						register={this.register}
+					/>
+					<br />
+					{this.state.user ? this.state.user.email : <p>Nobody is signed in!</p>}
+					<RegisterModal
+						show={this.state.showRegister}
+						showRegister={this.showRegister}
+						register={this.register}
+					/>
+					<LoginModal
+						show={this.state.showLogin}
+						showLogin={this.showLogin}
+						login={this.login}
+					/>
+				</div>
+			</MuiThemeProvider >
 		);
 	}
 }
 
-export default App;
+export default (App);
