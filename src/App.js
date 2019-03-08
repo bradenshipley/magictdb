@@ -1,27 +1,41 @@
 import React, { Component } from 'react';
-
+import { auth } from './firebase/config'
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+	state = {
+		user: ''
+	}
+	componentDidMount = () => {
+		//add a listener for a logged in user, if there is one, set the user state to the currently logged in user, else do nothing
+		auth.onAuthStateChanged((user) => {
+			if (user) {
+				this.setState({ user })
+			} else {
+				this.setState({ user: '' })
+			}
+		})
+	}
+	register = () => {
+		auth.createUserWithEmailAndPassword('kayceeshipley@gmail.com', 'password123').catch(err => console.log(err))
+	}
+	login = (user, email) => {
+		auth.signInWithEmailAndPassword('bradenrshipley@gmail.com', 'password123').catch(err => console.log(err))
+	}
+	logout = () => {
+		auth.signOut().then(() => this.setState({ user: '' })).catch(err => console.log(err))
+	}
+	render() {
+		return (
+			<div className="App">
+				Landing Page
+			<button onClick={this.register}>register</button>
+				<button onClick={this.login}>login</button>
+				<button onClick={this.logout}>logout</button>
+				<br />
+				{this.state.user ? this.state.user.email : <p>Nobody is signed in!</p>}
+			</div>
+		);
+	}
 }
 
 export default App;
