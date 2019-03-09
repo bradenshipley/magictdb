@@ -53,7 +53,7 @@ const RegisterModal = props => {
     <Modal open={props.show} style={getModalStyle()} >
       <Paper elevation={5} className={classes.container}>
         <form className={classes.form} noValidate autoComplete='off'>
-          <Typography variant="h6" color="inherit" >Register</Typography>
+          <Typography variant="h6" color="textPrimary" >Register</Typography>
           <TextField
             // required
             id="standard-required"

@@ -4,6 +4,8 @@ import './index.css'
 import { createMuiTheme } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import App from './App'
+import { red, indigo } from '@material-ui/core/colors';
+import { BrowserRouter } from 'react-router-dom'
 let theme = createMuiTheme({
   typography: {
     useNextVariants: true,
@@ -13,13 +15,13 @@ let theme = createMuiTheme({
       letterSpacing: 0.5,
     },
   },
-  // palette: {
-  //   primary: {
-  //     light: '#63ccff',
-  //     main: '#009be5',
-  //     dark: '#006db3',
-  //   },
-  // },
+  palette: {
+    type: 'dark',
+    primary: { main: "#1a237e", contrastText: "#fff" },
+    error: red,
+    contrastThreshold: 3,
+    tonalOffset: .2
+  },
   spacing: {
     unit: 50,
   },
@@ -31,9 +33,9 @@ let theme = createMuiTheme({
 
 ReactDOM.render(
   <>
-
     <CssBaseline />
-    <App theme={theme} />
-
+    <BrowserRouter>
+      <App theme={theme} />
+    </BrowserRouter>
   </>
   , document.getElementById('root'))

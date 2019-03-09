@@ -29,7 +29,6 @@ function ButtonAppBar(props) {
             color="inherit"
             aria-label="Menu"
             onClick={() => {
-              console.log('clicked')
               showDrawer(true)
             }}
           >
@@ -47,7 +46,7 @@ function ButtonAppBar(props) {
           }
         </Toolbar>
       </AppBar>
-      <Drawer show={true} showDrawer={showDrawer} />
+      <Drawer show={drawer} showDrawer={showDrawer} />
     </div>
   );
 }
