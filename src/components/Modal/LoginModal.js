@@ -45,12 +45,12 @@ const RegisterModal = props => {
   const classes = useStyles();
   const [username, setUsername] = useState([])
   const [password, setPassword] = useState([])
-  const [redirect, handleRedirect] = useState(false)
+  // const [redirect, handleRedirect] = useState(false)
   const login = (email, password) => {
     auth.signInWithEmailAndPassword(email, password)
       .then((user) => {
         props.showLogin()
-        handleRedirect(true)
+        // handleRedirect(true)
       })
       .catch(err => console.log(err))
   }
@@ -88,7 +88,7 @@ const RegisterModal = props => {
           </form>
         </Paper>
       </Modal>
-      {redirect && <Redirect to='/home' />}
+      {/* {redirect && <Redirect to='/home' />} */}
     </>
   )
 }

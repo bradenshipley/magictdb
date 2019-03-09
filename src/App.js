@@ -4,6 +4,7 @@ import { auth } from './firebase/config'
 import RegisterModal from './components/Modal/RegisterModal'
 import LoginModal from './components/Modal/LoginModal'
 import { MuiThemeProvider } from '@material-ui/core/styles';
+import routes from './routes'
 
 class App extends Component {
 	state = {
@@ -42,8 +43,7 @@ class App extends Component {
 						showLogin={this.showLogin}
 						register={this.register}
 					/>
-					<br />
-					{this.state.user ? this.state.user.email : <p>Nobody is signed in!</p>}
+					{routes}
 					<RegisterModal
 						show={this.state.showRegister}
 						showRegister={this.showRegister}
